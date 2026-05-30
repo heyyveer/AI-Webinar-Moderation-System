@@ -55,6 +55,10 @@ Example:
 
 ---
 
+## Demo Video
+
+https://github.com/user-attachments/assets/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+
 # Core Features
 
 ## Real-Time Chat Monitoring
