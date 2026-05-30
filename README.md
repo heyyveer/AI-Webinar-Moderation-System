@@ -57,7 +57,7 @@ Example:
 
 ## Demo Video
 
-https://github.com/user-attachments/assets/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+[Video](https://github.com/heyyveer/AI-Webinar-Moderation-System/blob/main/streamlit%20preview1.mp4)
 
 # Core Features
 
