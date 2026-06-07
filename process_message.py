@@ -7,9 +7,27 @@ from sklearn.metrics.pairwise import cosine_similarity
 # LOAD MODELS
 # =====================================================
 
-classifier = joblib.load("C:\\Users\\Asus\\Documents\\GitHub\\AI-Webinar-Moderation-System\\model\\query_classifier\\classifier.pkl")
-vectorizer = joblib.load("C:\\Users\\Asus\\Documents\\GitHub\\AI-Webinar-Moderation-System\\model\\query_classifier\\vectorizer.pkl")
+import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+classifier = joblib.load(
+    os.path.join(
+        BASE_DIR,
+        "model",
+        "query_classifier",
+        "classifier.pkl"
+    )
+)
+
+vectorizer = joblib.load(
+    os.path.join(
+        BASE_DIR,
+        "model",
+        "query_classifier",
+        "vectorizer.pkl"
+    )
+)
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 # =====================================================

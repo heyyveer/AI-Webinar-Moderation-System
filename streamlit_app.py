@@ -2,6 +2,16 @@ import streamlit as st
 from process_message import process_message, clusters
 import pandas as pd
 import random
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATASET_PATH = os.path.join(
+    BASE_DIR,
+    "dataset",
+    "webinar_moderation_nlp_dataset.csv"
+)
+
 # =====================================================
 # PAGE CONFIG
 # =====================================================
@@ -46,9 +56,7 @@ with col_demo1:
 
         try:
 
-            df = pd.read_csv(
-                "C:\\Users\\Asus\\Documents\\GitHub\\AI-Webinar-Moderation-System\\dataset\\webinar_moderation_nlp_dataset.csv"
-            )
+            df = pd.read_csv(DATASET_PATH)
 
             st.session_state.all_messages = []
 
@@ -82,9 +90,7 @@ with col_demo2:
 
         try:
 
-            df = pd.read_csv(
-                "C:\\Users\\Asus\\Documents\\GitHub\\AI-Webinar-Moderation-System\\dataset\\webinar_moderation_nlp_dataset.csv"
-            )
+            df = pd.read_csv(DATASET_PATH)
 
             random_message = random.choice(
                 df["message"].tolist()
