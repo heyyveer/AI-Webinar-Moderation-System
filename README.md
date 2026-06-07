@@ -5,6 +5,7 @@ An AI-powered real-time webinar intelligence and smart moderation platform desig
 
 ---
 
+
 # Problem Statement
 
 In large-scale webinars and virtual meetings with hundreds or thousands of participants, hosts face significant challenges in monitoring live chats and identifying critical issues in real time.
@@ -54,6 +55,10 @@ Example:
 ```
 
 ---
+
+## Demo Video
+
+[Video](https://github.com/heyyveer/AI-Webinar-Moderation-System/blob/main/streamlit%20preview1.mp4)
 
 # Core Features
 
@@ -305,3 +310,5 @@ It demonstrates practical applications of AI in enterprise communication and lar
 Veer Tiwari
 
 ---
+
+# DM for collaboration 
