@@ -1,270 +1,304 @@
+# 🎯 AI Webinar Moderation System
 
-# AI Webinar Moderation System
-
-An AI-powered real-time webinar intelligence and smart moderation platform designed to help hosts manage large-scale online meetings efficiently.
-
----
-
-
-# Problem Statement
-
-In large-scale webinars and virtual meetings with hundreds or thousands of participants, hosts face significant challenges in monitoring live chats and identifying critical issues in real time.
-
-Important concerns such as:
-
-* audio issues,
-* attendance problems,
-* technical failures,
-* urgent participant questions,
-* spam messages,
-* and repeated complaints
-
-often get buried inside massive chat streams.
-
-As a result:
-
-* hosts become overloaded,
-* moderators struggle to monitor chats manually,
-* important issues remain unresolved,
-* and the overall webinar experience degrades.
+An AI-powered Webinar Moderation System designed to help hosts manage large-scale online meetings more efficiently by automatically detecting issues, clustering duplicate complaints, and prioritizing attendee concerns in real time.
 
 ---
 
-# Solution
+# 🌐 Live Demo
 
-The AI Webinar Moderation System solves this problem using Artificial Intelligence, Natural Language Processing (NLP), and Real-Time Communication technologies.
+### Streamlit Application
 
-The platform continuously monitors participant messages and intelligently:
+https://ai-webinar-moderation-system.streamlit.app/
 
-* classifies messages,
-* filters spam,
-* detects technical issues,
-* identifies urgent concerns,
-* groups duplicate complaints,
-* analyzes sentiment,
-* and forwards only meaningful insights to the host dashboard.
+### Demo Video
 
-Instead of reading thousands of raw messages, the host receives summarized and prioritized insights.
+https://github.com/heyyveer/AI-Webinar-Moderation-System/blob/main/streamlit%20preview1.mp4
+
+### GitHub Repository
+
+https://github.com/heyyveer/AI-Webinar-Moderation-System
+
+---
+
+# 🚀 Project Overview
+
+Large webinars often contain hundreds or thousands of attendee messages.
+
+Important issues such as:
+
+* Audio problems
+* Attendance complaints
+* Technical difficulties
+* Participant questions
+* Spam messages
+
+can easily get lost in the chat stream.
+
+This project uses Artificial Intelligence and Natural Language Processing (NLP) to automatically identify, group, and prioritize attendee concerns so hosts can focus on solving the most impactful problems.
+
+---
+
+# ❗ Problem Statement
+
+In large-scale virtual events:
+
+* Hosts cannot manually monitor every message.
+* Duplicate complaints flood the chat.
+* Important issues remain unnoticed.
+* Moderators become overwhelmed.
+* Participant experience suffers.
 
 Example:
 
 ```text
-⚠ Audio issue reported by 132 attendees
-📌 Most asked question: Will the recording be shared?
-🚫 245 spam messages filtered
+audio not working
+voice issue
+can't hear speaker
+speaker not audible
+```
+
+Although these messages represent the same issue, they appear as separate messages in a traditional webinar chat.
+
+---
+
+# ✅ Solution
+
+The AI Webinar Moderation System automatically:
+
+* Classifies attendee messages
+* Detects duplicate complaints
+* Clusters similar issues together
+* Calculates issue priority
+* Highlights critical problems
+* Reduces host chat overload
+
+Instead of showing hundreds of repeated complaints, the system generates meaningful insights.
+
+Example:
+
+```text
+⚠ Audio Issue
+
+Reported By: 132 Attendees
+
+Priority: HIGH
 ```
 
 ---
 
-## Demo Video
+# 🧠 Current Features
 
-[Video](https://github.com/heyyveer/AI-Webinar-Moderation-System/blob/main/streamlit%20preview1.mp4)
+## AI-Based Query Classification
 
-# Core Features
-
-## Real-Time Chat Monitoring
-
-* Live monitoring of participant messages
-* WebSocket-based communication
-* Low-latency event handling
-
-## AI-Based Message Classification
-
-Classifies messages into categories such as:
+Automatically classifies messages into categories:
 
 * Technical Issues
-* Attendance Problems
+* Attendance Issues
 * Questions
 * Spam
 * Abuse
 * General Messages
 
-## Duplicate Complaint Detection
+---
 
-Groups similar issues together.
+## Semantic Duplicate Detection
+
+Detects messages with similar meaning.
 
 Example:
 
 ```text
-"No audio"
-"Voice not working"
-"Cannot hear speaker"
+audio not working
+voice issue
+cannot hear speaker
+speaker not audible
 ```
 
-Converted into:
+are automatically grouped into the same issue cluster.
+
+---
+
+## Dynamic Issue Clustering
+
+Creates clusters of related attendee complaints.
+
+Example:
 
 ```text
-⚠ Audio issue reported by 85 attendees
+Cluster:
+Audio Issue
+
+Affected Users:
+85
 ```
-
-## Priority Detection
-
-Detects critical and high-priority issues automatically.
-
-## Spam & Abuse Filtering
-
-Automatically filters irrelevant or harmful messages.
-
-## Sentiment Analysis
-
-Detects frustration, urgency, and negative sentiment.
-
-## Smart Host Dashboard
-
-Provides:
-
-* summarized issues,
-* top questions,
-* live analytics,
-* priority alerts,
-* and participant insights.
 
 ---
 
-# System Architecture
+## Priority Scoring Engine
+
+Prioritizes issues based on:
+
+* Issue category
+* Number of affected attendees
+
+Priority Levels:
 
 ```text
-Participants
-      ↓
-WebSocket Server
-      ↓
-AI Processing Pipeline
-      ↓
-Message Classification
-      ↓
-Priority & Duplicate Detection
-      ↓
-Host Dashboard
+LOW
+MEDIUM
+HIGH
+CRITICAL
 ```
 
 ---
 
-# Technology Stack
+## Interactive Dashboard
 
-## Frontend
+Built using Streamlit.
 
-* React.js
-* TailwindCSS
-* Socket.IO Client
+Dashboard Features:
 
-## Backend
-
-* FastAPI
-* Python
-* WebSockets / Socket.IO
-
-## AI / NLP
-
-* Scikit-learn
-* TF-IDF Vectorization
-* Logistic Regression
-* Transformers
-* DistilBERT
-
-## Database
-
-* MongoDB
-
-## Deployment
-
-* Docker
-* AWS / Render / Railway
+* Live attendee query feed
+* Message classification
+* Cluster visualization
+* Top issue detection
+* System statistics
 
 ---
 
-# AI Pipeline
+# 📊 AI Pipeline
 
 ```text
 Incoming Message
         ↓
-Text Preprocessing
+Text Cleaning
         ↓
-Feature Extraction
+TF-IDF Vectorization
         ↓
 Message Classification
         ↓
-Priority Scoring
+Semantic Similarity Detection
         ↓
-Duplicate Similarity Detection
+Issue Clustering
+        ↓
+Priority Scoring
         ↓
 Dashboard Update
 ```
 
 ---
 
-# Project Structure
+# 🏗 Current Architecture
 
 ```text
-ai-webinar-moderation-system/
+Participant Message
+        ↓
+NLP Classification Model
+        ↓
+Semantic Similarity Engine
+        ↓
+Dynamic Clustering
+        ↓
+Priority Engine
+        ↓
+Streamlit Dashboard
+```
+
+---
+
+# 🛠 Technology Stack
+
+## AI / NLP
+
+* Python
+* Scikit-learn
+* TF-IDF Vectorization
+* Logistic Regression
+* Sentence Transformers
+* Cosine Similarity
+
+## Dashboard
+
+* Streamlit
+
+## Data Processing
+
+* Pandas
+* NumPy
+* Joblib
+
+---
+
+# 📁 Project Structure
+
+```text
+AI-Webinar-Moderation-System/
 │
-├── backend/
-│   ├── api/
-│   ├── websocket/
-│   ├── models/
-│   ├── services/
-│   ├── utils/
-│   ├── requirements.txt
-│   └── main.py
+├── dataset/
+│   └── webinar_moderation_nlp_dataset.csv
 │
-├── ai-engine/
-│   ├── dataset/
-│   ├── training/
-│   ├── inference/
-│   ├── notebooks/
-│   └── saved_models/
+├── model/
+│   └── query_classifier/
+│       ├── classifier.pkl
+│       └── vectorizer.pkl
 │
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
-│
-├── docs/
-│   ├── architecture/
-│   ├── api-docs/
-│   └── diagrams/
-│
+├── process_message.py
+├── streamlit_app.py
+├── requirements.txt
 ├── README.md
-├── .gitignore
-├── docker-compose.yml
 └── LICENSE
 ```
 
 ---
 
-# Development Roadmap
+# 📈 Current Progress
 
-## Phase 1 — Real-Time Communication
+### Completed
 
-* Build WebSocket server
-* Create participant chat system
-* Create host dashboard
+✅ Query Classification Model
 
-## Phase 2 — NLP Classification
+✅ Semantic Duplicate Detection
 
-* Train message classification model
-* Detect spam and issues
+✅ Dynamic Clustering Engine
 
-## Phase 3 — Duplicate Detection
+✅ Priority Scoring Engine
 
-* Group repeated complaints
-* Generate summarized issue reports
+✅ Streamlit Dashboard
 
-## Phase 4 — Smart Analytics
-
-* Add sentiment analysis
-* Add priority scoring
-* Add AI-generated summaries
-
-## Phase 5 — Production Scaling
-
-* Queue systems
-* Load balancing
-* Scalable deployment
-* Multi-language support
+✅ Live Deployment
 
 ---
 
-# Use Cases
+# 🚧 Upcoming Features
+
+## Phase 2 — Backend API
+
+* FastAPI Integration
+* REST APIs
+* Model Serving
+
+## Phase 3 — Real-Time Communication
+
+* WebSocket Integration
+* Live Chat Processing
+* Event Streaming
+
+## Phase 4 — AI Enhancements
+
+* Sentiment Analysis
+* AI Summarization
+* Auto-generated Issue Reports
+
+## Phase 5 — Enterprise Features
+
+* Multi-language Support
+* Google Meet Integration
+* Zoom Integration
+* Microsoft Teams Integration
+
+---
+
+# 🎯 Use Cases
 
 * Online Classes
 * University Webinars
@@ -272,43 +306,32 @@ ai-webinar-moderation-system/
 * Virtual Conferences
 * Technical Support Sessions
 * Enterprise Live Events
-* Government Virtual Programs
 
 ---
 
-# Future Scope
+# 🔮 Future Scope
 
-* Multilingual AI moderation
-* AI-powered auto replies
-* LLM-based summarization
+* AI-powered moderator assistant
+* Real-time issue analytics
 * Voice complaint detection
-* Real-time analytics
-* AI moderator assistant
-* Webinar insights engine
-* Platform integrations (Google Meet, Zoom, Teams)
+* LLM-based summarization
+* Automated host notifications
+* Cross-platform webinar integrations
 
 ---
 
-# Why This Project Matters
+# 👨‍💻 Author
 
-This project combines:
+**Veer Tiwari**
 
-* Artificial Intelligence,
-* Natural Language Processing,
-* Realtime Systems,
-* Distributed Communication,
-* and Human-Centered Design
-
-to solve a real-world scalability problem in modern online communication systems.
-
-It demonstrates practical applications of AI in enterprise communication and large-scale virtual collaboration.
+Machine Learning & AI Enthusiast
 
 ---
 
-# Author
+# 🤝 Collaboration
 
-Veer Tiwari
+Contributions, feedback, and feature suggestions are welcome.
 
----
+Feel free to open an issue or connect for collaboration.
 
-# DM for collaboration 
+⭐ If you find this project interesting, consider giving the repository a star.
