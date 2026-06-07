@@ -1,17 +1,27 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from process_message import process_message
 
-from backend.routes.analyze import router
-
-app = FastAPI(
-    title="AI Webinar Moderation API",
-    version="1.0.0"
-)
-
-app.include_router(router)
+app = FastAPI()
 
 @app.get("/")
 def home():
+    return {"message": "API Running"}
 
-    return {
-        "message": "AI Webinar Moderation API Running"
-    }
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+
+    await websocket.accept()
+
+    try:
+
+        while True:
+
+            message = await websocket.receive_text()
+
+            result = process_message(message)
+
+            await websocket.send_json(result)
+
+    except WebSocketDisconnect:
+
+        print("Client disconnected")
