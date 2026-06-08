@@ -49,7 +49,7 @@ st.divider()
 
 st.subheader("🎮 Demo Controls")
 
-col_demo1, col_demo2 = st.columns(2)
+col_demo1, col_demo2, col_demo3 = st.columns(3)
 
 with col_demo1:
 
@@ -113,6 +113,54 @@ with col_demo2:
 
             st.success(
                 f"Generated: {random_message}"
+            )
+
+        except Exception as e:
+
+            st.error(str(e))
+
+
+with col_demo3:
+
+    if st.button("⚡ Process Random 100 Messages"):
+
+        try:
+
+            df = pd.read_csv(DATASET_PATH)
+
+            random_df = df.sample(
+                n=min(60, len(df)),
+                random_state=None
+            )
+
+            st.session_state.all_messages = []
+
+            progress = st.progress(0)
+
+            for idx, (_, row) in enumerate(
+                random_df.iterrows()
+            ):
+
+                result = process_message(
+                    row["message"]
+                )
+
+                st.session_state.all_messages.append({
+
+                    "message": row["message"],
+
+                    "category": result["category"],
+
+                    "priority": result["priority"]
+
+                })
+
+                progress.progress(
+                    (idx + 1) / len(random_df)
+                )
+
+            st.success(
+                f"Processed {len(random_df)} random messages"
             )
 
         except Exception as e:
