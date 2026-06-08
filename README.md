@@ -34,8 +34,6 @@ https://github.com/heyyveer/AI-Webinar-Moderation-System
 
 # 🚀 Overview
 
-# 🚀 Overview
-
 Large webinars often generate hundreds of attendee messages every minute.
 
 Important issues such as:
