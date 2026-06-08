@@ -75,6 +75,8 @@ with col_demo1:
 
                     "message": row["message"],
 
+                    "sentiment": result["sentiment"],
+
                     "category": result["category"],
 
                     "priority": result["priority"]
@@ -111,7 +113,9 @@ with col_demo2:
 
                 "category": result["category"],
 
-                "priority": result["priority"]
+                "priority": result["priority"],
+
+                "sentiment": result["sentiment"]
 
             })
 
@@ -155,7 +159,9 @@ with col_demo3:
 
                     "category": result["category"],
 
-                    "priority": result["priority"]
+                    "priority": result["priority"],
+
+                    "sentiment": result["sentiment"],   
 
                 })
 
@@ -202,6 +208,7 @@ with left_col:
             st.session_state.all_messages.append({
                 "message": message,
                 "category": result["category"],
+                "sentiment": result["sentiment"],
                 "priority": result["priority"]
             })
 
@@ -216,6 +223,11 @@ with left_col:
                 st.metric(
                     "Category",
                     result["category"]
+                )
+
+                st.metric(
+                    "Sentiment",
+                    result["sentiment"].title()
                 )
 
                 st.metric(
@@ -296,6 +308,7 @@ with right_col:
 
                 st.caption(
                     f"{msg['category']} | "
+                    f"{msg['sentiment']} | "
                     f"{msg['priority']}"
                 )
 # =====================================================

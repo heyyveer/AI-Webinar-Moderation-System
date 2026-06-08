@@ -58,6 +58,9 @@ def generate_summary(cluster):
         f"messages were grouped together."
     )
 
+from collections import Counter
+import re
+
 
 def get_top_keywords(cluster):
 
@@ -83,9 +86,7 @@ def get_top_keywords(cluster):
         "hai", "nahi",
 
         "all", "can",
-        "will", "are",
-
-        "issue", "problem"
+        "will", "are"
     }
 
     filtered = [
@@ -103,7 +104,6 @@ def get_top_keywords(cluster):
         word
 
         for word, _
-
         in Counter(filtered).most_common(5)
 
     ]
