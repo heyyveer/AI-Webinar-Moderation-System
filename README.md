@@ -10,15 +10,29 @@ An AI-powered real-time webinar intelligence and moderation platform that automa
 
 https://ai-webinar-moderation-system.streamlit.app/
 
-### Demo Video
-
-https://github.com/heyyveer/AI-Webinar-Moderation-System/blob/main/streamlit%20preview1.mp4
-
 ### GitHub Repository
 
 https://github.com/heyyveer/AI-Webinar-Moderation-System
 
 ---
+
+# 📸 Dashboard Preview
+
+## Main Dashboard
+
+![Dashboard](assets/dashboard.png)
+
+## AI Issue Clustering
+
+![Clusters](assets/clusters.png)
+
+## Sentiment Analysis
+
+![Sentiment](assets/sentiment.png)
+
+---
+
+# 🚀 Overview
 
 # 🚀 Overview
 
