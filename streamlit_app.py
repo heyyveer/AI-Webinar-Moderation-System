@@ -3,6 +3,7 @@ from process_message import process_message, clusters
 import pandas as pd
 import random
 import os
+import plotly.express as px
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -309,6 +310,101 @@ else:
                 len(cluster["messages"])
             )
 
+
+# =====================================================
+# ANALYTICS DASHBOARD
+# =====================================================
+
+st.divider()
+
+st.header("📊 Webinar Analytics")
+
+if len(st.session_state.all_messages) > 0:
+
+    analytics_df = pd.DataFrame(
+        st.session_state.all_messages
+    )
+
+    # -----------------------------
+    # Category Distribution
+    # -----------------------------
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        st.subheader("📂 Category Distribution")
+
+        category_counts = (
+            analytics_df["category"]
+            .value_counts()
+            .reset_index()
+        )
+
+        category_counts.columns = [
+            "Category",
+            "Count"
+        ]
+
+        fig = px.pie(
+            category_counts,
+            names="Category",
+            values="Count",
+            hole=0.4
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
+
+    # -----------------------------
+    # Priority Distribution
+    # -----------------------------
+
+    with col2:
+
+        st.subheader("🚨 Priority Distribution")
+
+        priority_counts = (
+            analytics_df["priority"]
+            .value_counts()
+            .reset_index()
+        )
+
+        priority_counts.columns = [
+            "Priority",
+            "Count"
+        ]
+
+        fig = px.bar(
+            priority_counts,
+            x="Priority",
+            y="Count"
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
+
+    # -----------------------------
+    # Top Categories Table
+    # -----------------------------
+
+    st.subheader("🏆 Most Common Categories")
+
+    st.dataframe(
+        category_counts,
+        use_container_width=True
+    )
+
+else:
+
+    st.info(
+        "Run simulation or process messages to view analytics"
+    )
+
 # =====================================================
 # SYSTEM STATS
 # =====================================================
@@ -324,7 +420,7 @@ total_messages = sum(
     for cluster in clusters
 )
 
-col1, col2 = st.columns(2)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
 
@@ -336,10 +432,47 @@ with col1:
 with col2:
 
     st.metric(
-        "Total Messages Processed",
+        "Messages Processed",
         total_messages
     )
 
+with col3:
+
+    high_priority = len([
+        msg for msg in
+        st.session_state.all_messages
+        if msg["priority"] in
+        ["HIGH", "CRITICAL"]
+    ])
+
+    st.metric(
+        "High Priority",
+        high_priority
+    )
+
+with col4:
+
+    if len(clusters) > 0:
+
+        largest_cluster = max(
+            clusters,
+            key=lambda x:
+            len(x["messages"])
+        )
+
+        st.metric(
+            "Top Cluster Users",
+            len(
+                largest_cluster["messages"]
+            )
+        )
+
+    else:
+
+        st.metric(
+            "Top Cluster Users",
+            0
+        )
 # =====================================================
 # FOOTER
 # =====================================================
