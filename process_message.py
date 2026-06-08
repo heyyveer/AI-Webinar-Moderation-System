@@ -2,7 +2,9 @@ import joblib
 import re
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-
+from backend.services.sentiment_service import (
+    analyze_sentiment
+)
 # =====================================================
 # LOAD MODELS
 # =====================================================
@@ -110,7 +112,10 @@ def create_cluster(message, category, embedding):
 
         "id": len(clusters) + 1,
 
-        "name": category.replace("_", " ").title(),
+        "name": category.replace(
+            "_",
+            " "
+        ).title(),
 
         "category": category,
 
@@ -181,8 +186,13 @@ def calculate_priority(category, cluster_size):
 
 def process_message(message):
 
-    category = predict_category(message)
+    category = predict_category(
+        message
+    )
 
+    sentiment = analyze_sentiment(
+        message
+    )
     embedding = embedding_model.encode(message)
 
     cluster = find_matching_cluster(
@@ -219,6 +229,8 @@ def process_message(message):
 
         "cluster_id": cluster["id"],
 
+        "sentiment": sentiment,
+
         "cluster_name": cluster["name"],
 
         "users_affected": cluster_size,
@@ -245,3 +257,15 @@ if __name__ == "__main__":
 
         for k, v in result.items():
             print(f"{k}: {v}")
+
+# if __name__ == "__main__":
+
+#     while True:
+
+#         msg = input(
+#             "\nEnter Message: "
+#         )
+
+#         result = process_message(msg)
+
+#         print(result)
