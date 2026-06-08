@@ -1,6 +1,9 @@
 import streamlit as st
 from process_message import process_message, clusters
-from backend.services.summarization_service import generate_summary
+from backend.services.summarization_service import (
+    generate_summary,
+    get_top_keywords
+)   
 import pandas as pd
 import random
 import os
@@ -333,6 +336,15 @@ else:
 
             st.success(
                 f"🤖 AI Summary: {summary}"
+            )
+
+            keywords = get_top_keywords(
+                cluster
+            )
+
+            st.write(
+                f"**Top Keywords:** "
+                f"{', '.join(keywords)}"
             )
 
             st.write(
