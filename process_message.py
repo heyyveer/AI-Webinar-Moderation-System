@@ -36,7 +36,7 @@ embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 # CONFIG
 # =====================================================
 
-SIMILARITY_THRESHOLD = 0.45
+SIMILARITY_THRESHOLD = 0.35
 
 # =====================================================
 # CLUSTER STORAGE
