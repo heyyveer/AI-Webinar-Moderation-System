@@ -1,12 +1,12 @@
 # 🎯 AI Webinar Moderation System
 
-An AI-powered Webinar Moderation System designed to help hosts manage large-scale online meetings more efficiently by automatically detecting issues, clustering duplicate complaints, and prioritizing attendee concerns in real time.
+An AI-powered real-time webinar intelligence and moderation platform that automatically detects attendee issues, clusters duplicate complaints, analyzes sentiment, generates summaries, and prioritizes critical concerns for webinar hosts.
 
 ---
 
 # 🌐 Live Demo
 
-### Streamlit Application
+### Streamlit Dashboard
 
 https://ai-webinar-moderation-system.streamlit.app/
 
@@ -20,21 +20,22 @@ https://github.com/heyyveer/AI-Webinar-Moderation-System
 
 ---
 
-# 🚀 Project Overview
+# 🚀 Overview
 
-Large webinars often contain hundreds or thousands of attendee messages.
+Large webinars often generate hundreds of attendee messages every minute.
 
 Important issues such as:
 
 * Audio problems
 * Attendance complaints
+* Screen-sharing failures
 * Technical difficulties
-* Participant questions
 * Spam messages
+* Participant questions
 
-can easily get lost in the chat stream.
+can easily get buried inside the chat stream.
 
-This project uses Artificial Intelligence and Natural Language Processing (NLP) to automatically identify, group, and prioritize attendee concerns so hosts can focus on solving the most impactful problems.
+This project leverages Machine Learning, NLP, Semantic Similarity, Sentiment Analysis, and Real-Time Processing to automatically identify and prioritize attendee concerns.
 
 ---
 
@@ -42,22 +43,24 @@ This project uses Artificial Intelligence and Natural Language Processing (NLP) 
 
 In large-scale virtual events:
 
-* Hosts cannot manually monitor every message.
+* Moderators cannot manually monitor every message.
 * Duplicate complaints flood the chat.
-* Important issues remain unnoticed.
-* Moderators become overwhelmed.
+* Critical issues remain unnoticed.
+* Hosts receive delayed feedback.
 * Participant experience suffers.
 
 Example:
 
 ```text
 audio not working
-voice issue
 can't hear speaker
 speaker not audible
+voice issue
 ```
 
-Although these messages represent the same issue, they appear as separate messages in a traditional webinar chat.
+All of these messages represent the same underlying issue.
+
+Traditional webinar platforms treat them as separate messages.
 
 ---
 
@@ -67,30 +70,31 @@ The AI Webinar Moderation System automatically:
 
 * Classifies attendee messages
 * Detects duplicate complaints
-* Clusters similar issues together
+* Groups similar complaints together
 * Calculates issue priority
-* Highlights critical problems
-* Reduces host chat overload
-
-Instead of showing hundreds of repeated complaints, the system generates meaningful insights.
+* Performs sentiment analysis
+* Generates AI summaries
+* Highlights critical issues in real time
 
 Example:
 
 ```text
 ⚠ Audio Issue
 
-Reported By: 132 Attendees
+Affected Users: 132
+
+Sentiment: Negative
 
 Priority: HIGH
 ```
 
 ---
 
-# 🧠 Current Features
+# 🧠 Key Features
 
-## AI-Based Query Classification
+## Query Classification
 
-Automatically classifies messages into categories:
+Automatically classifies attendee messages into:
 
 * Technical Issues
 * Attendance Issues
@@ -101,9 +105,9 @@ Automatically classifies messages into categories:
 
 ---
 
-## Semantic Duplicate Detection
+## Semantic Similarity Detection
 
-Detects messages with similar meaning.
+Uses Sentence Transformers and Cosine Similarity to identify messages with similar meaning.
 
 Example:
 
@@ -114,29 +118,25 @@ cannot hear speaker
 speaker not audible
 ```
 
-are automatically grouped into the same issue cluster.
-
 ---
 
 ## Dynamic Issue Clustering
 
-Creates clusters of related attendee complaints.
+Groups similar attendee complaints into a single cluster.
 
 Example:
 
 ```text
-Cluster:
 Audio Issue
 
-Affected Users:
-85
+Affected Users: 85
 ```
 
 ---
 
 ## Priority Scoring Engine
 
-Prioritizes issues based on:
+Calculates issue severity using:
 
 * Issue category
 * Number of affected attendees
@@ -152,15 +152,76 @@ CRITICAL
 
 ---
 
-## Interactive Dashboard
+## Sentiment Analysis
 
-Built using Streamlit.
+Analyzes attendee emotions in real time.
+
+Example:
+
+```text
+This webinar is useless
+→ Negative
+
+Great explanation sir
+→ Positive
+
+What is tokenization?
+→ Neutral
+```
+
+---
+
+## AI-Powered Issue Summarization
+
+Generates concise summaries of attendee concerns.
+
+Example:
+
+```text
+18 attendees reported concerns related to
+audio, speaker, and voice issues.
+```
+
+---
+
+## FastAPI Backend
+
+Provides APIs for:
+
+* Message Processing
+* Issue Classification
+* Sentiment Analysis
+* Real-Time Integration
+
+---
+
+## WebSocket Support
+
+Supports real-time attendee message processing.
+
+Example Flow:
+
+```text
+Attendee Message
+        ↓
+WebSocket
+        ↓
+AI Processing
+        ↓
+Dashboard Update
+```
+
+---
+
+## Interactive Streamlit Dashboard
 
 Dashboard Features:
 
-* Live attendee query feed
-* Message classification
+* Live attendee feed
+* Query classification
+* Sentiment monitoring
 * Cluster visualization
+* AI summaries
 * Top issue detection
 * System statistics
 
@@ -175,7 +236,9 @@ Text Cleaning
         ↓
 TF-IDF Vectorization
         ↓
-Message Classification
+Query Classification
+        ↓
+Sentiment Analysis
         ↓
 Semantic Similarity Detection
         ↓
@@ -183,23 +246,31 @@ Issue Clustering
         ↓
 Priority Scoring
         ↓
+AI Summarization
+        ↓
 Dashboard Update
 ```
 
 ---
 
-# 🏗 Current Architecture
+# 🏗 System Architecture
 
 ```text
-Participant Message
+Attendee Message
         ↓
-NLP Classification Model
+FastAPI Backend
+        ↓
+Classification Model
+        ↓
+Sentiment Engine
         ↓
 Semantic Similarity Engine
         ↓
-Dynamic Clustering
+Issue Clustering
         ↓
 Priority Engine
+        ↓
+AI Summarization
         ↓
 Streamlit Dashboard
 ```
@@ -208,7 +279,7 @@ Streamlit Dashboard
 
 # 🛠 Technology Stack
 
-## AI / NLP
+## Machine Learning & NLP
 
 * Python
 * Scikit-learn
@@ -216,6 +287,12 @@ Streamlit Dashboard
 * Logistic Regression
 * Sentence Transformers
 * Cosine Similarity
+
+## Backend
+
+* FastAPI
+* WebSockets
+* Uvicorn
 
 ## Dashboard
 
@@ -233,20 +310,21 @@ Streamlit Dashboard
 
 ```text
 AI-Webinar-Moderation-System/
+
+├── backend/
+│   ├── api/
+│   ├── websocket/
+│   └── services/
 │
 ├── dataset/
-│   └── webinar_moderation_nlp_dataset.csv
 │
 ├── model/
 │   └── query_classifier/
-│       ├── classifier.pkl
-│       └── vectorizer.pkl
 │
 ├── process_message.py
 ├── streamlit_app.py
 ├── requirements.txt
-├── README.md
-└── LICENSE
+└── README.md
 ```
 
 ---
@@ -255,46 +333,25 @@ AI-Webinar-Moderation-System/
 
 ### Completed
 
-✅ Query Classification Model
+✅ Query Classification
 
 ✅ Semantic Duplicate Detection
 
-✅ Dynamic Clustering Engine
+✅ Dynamic Clustering
 
 ✅ Priority Scoring Engine
+
+✅ Sentiment Analysis
+
+✅ AI Summarization
+
+✅ FastAPI Backend
+
+✅ WebSocket Integration
 
 ✅ Streamlit Dashboard
 
 ✅ Live Deployment
-
----
-
-# 🚧 Upcoming Features
-
-## Phase 2 — Backend API
-
-* FastAPI Integration
-* REST APIs
-* Model Serving
-
-## Phase 3 — Real-Time Communication
-
-* WebSocket Integration
-* Live Chat Processing
-* Event Streaming
-
-## Phase 4 — AI Enhancements
-
-* Sentiment Analysis
-* AI Summarization
-* Auto-generated Issue Reports
-
-## Phase 5 — Enterprise Features
-
-* Multi-language Support
-* Google Meet Integration
-* Zoom Integration
-* Microsoft Teams Integration
 
 ---
 
@@ -304,19 +361,20 @@ AI-Webinar-Moderation-System/
 * University Webinars
 * Corporate Meetings
 * Virtual Conferences
+* Enterprise Events
 * Technical Support Sessions
-* Enterprise Live Events
 
 ---
 
-# 🔮 Future Scope
+# 🔮 Future Enhancements
 
-* AI-powered moderator assistant
-* Real-time issue analytics
-* Voice complaint detection
-* LLM-based summarization
-* Automated host notifications
-* Cross-platform webinar integrations
+* Google Meet Integration
+* Zoom Integration
+* Microsoft Teams Integration
+* Multi-language Support
+* LLM-Based Issue Reports
+* Automated Moderator Assistant
+* Advanced Analytics Dashboard
 
 ---
 
@@ -324,14 +382,14 @@ AI-Webinar-Moderation-System/
 
 **Veer Tiwari**
 
-Machine Learning & AI Enthusiast
+Machine Learning Engineer | AI Enthusiast
+
+GitHub: https://github.com/heyyveer
 
 ---
 
-# 🤝 Collaboration
+# ⭐ Support
 
-Contributions, feedback, and feature suggestions are welcome.
+If you found this project useful, consider giving the repository a star.
 
-Feel free to open an issue or connect for collaboration.
-
-⭐ If you find this project interesting, consider giving the repository a star.
+Contributions, suggestions, and feedback are always welcome.
