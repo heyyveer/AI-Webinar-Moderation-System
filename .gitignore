@@ -1,4 +1,3 @@
 __pycache__/
 *.pyc
 .venv/
-__pycache__/process_message.cpython-312.pyc
