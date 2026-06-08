@@ -1,5 +1,9 @@
 import streamlit as st
 from process_message import process_message, clusters
+from backend.services.summarization_service import (
+    generate_summary,
+    get_top_keywords
+)   
 import pandas as pd
 import random
 import os
@@ -129,7 +133,7 @@ with col_demo3:
             df = pd.read_csv(DATASET_PATH)
 
             random_df = df.sample(
-                n=min(60, len(df)),
+                n=min(100, len(df)),
                 random_state=None
             )
 
@@ -259,34 +263,44 @@ with right_col:
 
     st.subheader("💬 Live Attendee Queries")
 
-    if len(st.session_state.all_messages) == 0:
+    query_container = st.container(
+        height=600
+    )
 
-        st.info("No attendee messages yet")
+    with query_container:
 
-    else:
+        if len(st.session_state.all_messages) == 0:
 
-        for msg in reversed(st.session_state.all_messages):
+            st.info("No attendee messages yet")
 
-            if msg["priority"] in ["HIGH", "CRITICAL"]:
+        else:
 
-                st.error(msg["message"])
+            for msg in reversed(
+                st.session_state.all_messages
+            ):
 
-            elif msg["priority"] == "MEDIUM":
+                if msg["priority"] in [
+                    "HIGH",
+                    "CRITICAL"
+                ]:
 
-                st.warning(msg["message"])
+                    st.error(msg["message"])
 
-            else:
+                elif msg["priority"] == "MEDIUM":
 
-                st.success(msg["message"])
+                    st.warning(msg["message"])
 
-            st.caption(
-                f"{msg['category']} | {msg['priority']}"
-            )
+                else:
 
+                    st.success(msg["message"])
+
+                st.caption(
+                    f"{msg['category']} | "
+                    f"{msg['priority']}"
+                )
 # =====================================================
 # CURRENT CLUSTERS
 # =====================================================
-
 st.divider()
 
 st.header("📂 Current Issue Clusters")
@@ -299,16 +313,42 @@ else:
 
     for cluster in clusters:
 
+        user_count = len(cluster["messages"])
+
+        if user_count >= 15:
+            emoji = "🔴"
+
+        elif user_count >= 8:
+            emoji = "🟠"
+
+        else:
+            emoji = "🟢"
+
         with st.expander(
-            f"{cluster['name']} ({len(cluster['messages'])} users)"
+            f"{emoji} {cluster['name']} ({user_count} users)"
         ):
 
             st.write(
                 f"**Category:** {cluster['category']}"
             )
 
+            summary = generate_summary(cluster)
+
+            st.success(
+                f"🤖 AI Summary: {summary}"
+            )
+
+            keywords = get_top_keywords(
+                cluster
+            )
+
             st.write(
-                f"**Users Affected:** {len(cluster['messages'])}"
+                f"**Top Keywords:** "
+                f"{', '.join(keywords)}"
+            )
+
+            st.write(
+                f"**Users Affected:** {user_count}"
             )
 
             st.write("### Messages")
@@ -318,54 +358,12 @@ else:
                 st.write(f"- {msg}")
 
 # =====================================================
-# TOP ISSUES
-# =====================================================
-
-st.divider()
-
-st.header("🔥 Top Webinar Issues")
-
-if len(clusters) == 0:
-
-    st.info("No issues available")
-
-else:
-
-    sorted_clusters = sorted(
-        clusters,
-        key=lambda x: len(x["messages"]),
-        reverse=True
-    )
-
-    for idx, cluster in enumerate(sorted_clusters[:5], start=1):
-
-        col1, col2 = st.columns([4, 1])
-
-        with col1:
-
-            st.write(
-                f"### {idx}. {cluster['name']}"
-            )
-
-            st.write(
-                f"Category: {cluster['category']}"
-            )
-
-        with col2:
-
-            st.metric(
-                "Users",
-                len(cluster["messages"])
-            )
-
-
-# =====================================================
 # ANALYTICS DASHBOARD
 # =====================================================
 
 st.divider()
 
-st.header("📊 Webinar Analytics")
+st.header("📊 Webinar Intelligence Dashboard")
 
 if len(st.session_state.all_messages) > 0:
 

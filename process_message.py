@@ -34,7 +34,7 @@ embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 # CONFIG
 # =====================================================
 
-SIMILARITY_THRESHOLD = 0.45
+SIMILARITY_THRESHOLD = 0.35
 
 # =====================================================
 # CLUSTER STORAGE
@@ -85,30 +85,18 @@ def predict_category(message):
 # FIND MATCHING CLUSTER
 # =====================================================
 
-def find_matching_cluster(message_embedding):
+def find_matching_cluster(
+    message_embedding,
+    category
+):
 
     if len(clusters) == 0:
         return None
 
-    best_cluster = None
-    best_score = 0
-
     for cluster in clusters:
 
-        score = cosine_similarity(
-            [message_embedding],
-            [cluster["embedding"]]
-        )[0][0]
-        print(
-            f"Comparing with {cluster['name']} -> {score:.4f}"
-        )
-        if score > best_score:
-
-            best_score = score
-            best_cluster = cluster
-
-    if best_score >= SIMILARITY_THRESHOLD:
-        return best_cluster
+        if cluster["category"] == category:
+            return cluster
 
     return None
 
@@ -122,7 +110,7 @@ def create_cluster(message, category, embedding):
 
         "id": len(clusters) + 1,
 
-        "name": message,
+        "name": category.replace("_", " ").title(),
 
         "category": category,
 
@@ -197,7 +185,10 @@ def process_message(message):
 
     embedding = embedding_model.encode(message)
 
-    cluster = find_matching_cluster(embedding)
+    cluster = find_matching_cluster(
+        embedding,
+        category
+    )
 
     # Existing Cluster
 
