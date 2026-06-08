@@ -20,11 +20,11 @@ https://github.com/heyyveer/AI-Webinar-Moderation-System
 
 ## Main Dashboard
 
-![Dashboard](assets/dashboard.png)
+![Dashboard](assets/Dashboard.png)
 
 ## AI Issue Clustering
 
-![Clusters](assets/clusters.png)
+![Clusters](assets/Clusters.png)
 
 ## Sentiment Analysis
 
